@@ -82,7 +82,6 @@ const Login = (props) => {
               wType='outlined'
               inputType='password'
             />
-
             {showErr ? (
               <div className='modal-error'>{errorMsg}</div>
             ) : (
