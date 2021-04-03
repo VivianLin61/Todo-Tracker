@@ -3,33 +3,64 @@ import React from 'react'
 import { WButton, WRow, WCol } from 'wt-frontend'
 
 const TableHeader = (props) => {
+  const list = props.activeList
   const buttonStyle = props.disabled
     ? ' table-header-button-disabled '
     : 'table-header-button '
   const clickDisabled = () => {}
+  const handleSortByDescription = () => {
+    props.sortItem('description')
+  }
+  const handleSortByStatus = () => {
+    props.sortItem('status')
+  }
+
+  const handleSortByDueDate = () => {
+    props.sortItem('due_date')
+  }
+
+  const handleSortByAssignedTo = () => {
+    props.sortItem('assigned_to')
+  }
 
   return (
     <WRow className='table-header'>
       <WCol size='3'>
-        <WButton className='table-header-section' wType='texted'>
+        <WButton
+          onClick={handleSortByDescription}
+          className='table-header-section'
+          wType='texted'
+        >
           Task
         </WButton>
       </WCol>
 
       <WCol size='2'>
-        <WButton className='table-header-section' wType='texted'>
+        <WButton
+          onClick={handleSortByDueDate}
+          className='table-header-section'
+          wType='texted'
+        >
           Due Date
         </WButton>
       </WCol>
 
       <WCol size='2'>
-        <WButton className='table-header-section' wType='texted'>
+        <WButton
+          onClick={handleSortByStatus}
+          className='table-header-section'
+          wType='texted'
+        >
           Status
         </WButton>
       </WCol>
 
       <WCol size='2'>
-        <WButton className='table-header-section' wType='texted'>
+        <WButton
+          className='table-header-section'
+          wType='texted'
+          onClick={handleSortByAssignedTo}
+        >
           Assigned To
         </WButton>
       </WCol>
