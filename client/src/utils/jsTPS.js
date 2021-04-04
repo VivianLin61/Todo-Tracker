@@ -45,9 +45,7 @@ export class SortItems_Transaction extends jsTPS_Transaction {
 
   async undoTransaction() {
     const { data } = await this.updateFunction({
-      variables: {
-        variables: { _id: this.listID, field: this.field },
-      },
+      variables: { _id: this.listID, field: this.field },
     })
     return data
   }

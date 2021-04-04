@@ -10,8 +10,9 @@ const TableHeader = (props) => {
   const handleSortByDescription = () => {
     props.sortItem('description')
   }
+
   const handleSortByStatus = () => {
-    props.sortItem('status')
+    props.sortItem('completed')
   }
 
   const handleSortByDueDate = () => {
