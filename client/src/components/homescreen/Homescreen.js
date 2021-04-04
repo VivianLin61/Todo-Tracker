@@ -31,10 +31,13 @@ const Homescreen = (props) => {
   const [UpdateTodoItemField] = useMutation(mutations.UPDATE_ITEM_FIELD)
   const [UpdateTodolistField] = useMutation(mutations.UPDATE_TODOLIST_FIELD)
   const [DeleteTodolist] = useMutation(mutations.DELETE_TODOLIST)
+  const [DeleteTodolist2] = useMutation(mutations.DELETE_TODOLIST2)
   const [DeleteTodoItem] = useMutation(mutations.DELETE_ITEM)
   const [AddTodolist] = useMutation(mutations.ADD_TODOLIST)
   const [AddTodoItem] = useMutation(mutations.ADD_ITEM)
   const [SortTodoItems] = useMutation(mutations.SORT_ITEMS)
+
+  // const [SetTodoToTop] = useMutation(mutations.SET_TO_TOP)
 
   const { loading, error, data, refetch } = useQuery(GET_DB_TODOS)
   if (loading) {
@@ -98,7 +101,7 @@ const Homescreen = (props) => {
       description: 'No Description',
       due_date: 'No Date',
       // assigned_to: props.user._id,
-      assigned_to: 'No Assigned To',
+      assigned_to: 'Not Assigned To',
       completed: false,
     }
     let opcode = 1
@@ -117,7 +120,7 @@ const Homescreen = (props) => {
     enableUndo()
   }
 
-  const deleteItem = async (item) => {
+  const deleteItem = async (item, index) => {
     let listID = activeList._id
     let itemID = item._id
     let opcode = 0
@@ -135,7 +138,8 @@ const Homescreen = (props) => {
       itemToDelete,
       opcode,
       AddTodoItem,
-      DeleteTodoItem
+      DeleteTodoItem,
+      index
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
@@ -227,6 +231,15 @@ const Homescreen = (props) => {
     const todo = todolists.find((todo) => todo.id === id || todo._id === id)
 
     setActiveList(todo)
+    // DeleteTodolist2({
+    //   variables: { _id: activeList._id },
+    //   refetchQueries: [{ query: GET_DB_TODOS }],
+    // })
+    // refetch()
+    // setActiveList({})
+    // SetTodoToTop({
+    //   variables: { _id: activeList._id },
+    // })
   }
 
   const closeList = () => {

@@ -162,7 +162,7 @@ const TableEntry = (props) => {
           </WButton>
           <WButton
             className='table-entry-buttons'
-            onClick={() => props.deleteItem(data)}
+            onClick={() => props.deleteItem(data, props.index)}
             wType='texted'
           >
             <i className='material-icons'>close</i>
