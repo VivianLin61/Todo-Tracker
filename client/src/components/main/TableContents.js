@@ -13,6 +13,7 @@ const TableContents = (props) => {
           reorderItem={props.reorderItem}
           editItem={props.editItem}
           index={index}
+          size={props.activeList.items.length - 1}
         />
       ))}
     </div>

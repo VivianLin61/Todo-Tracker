@@ -142,24 +142,50 @@ const TableEntry = (props) => {
 
       <WCol size='3'>
         <div className='button-group'>
-          <WButton
-            className='table-entry-buttons'
-            onClick={() => {
-              handleReorderItems(-1)
-            }}
-            wType='texted'
-          >
-            <i className='material-icons'>expand_less</i>
-          </WButton>
-          <WButton
-            className='table-entry-buttons'
-            onClick={() => {
-              handleReorderItems(1)
-            }}
-            wType='texted'
-          >
-            <i className='material-icons'>expand_more</i>
-          </WButton>
+          {props.index == 0 ? (
+            <WButton
+              className='table-entry-buttons disable-list-item-control'
+              onClick={() => {
+                handleReorderItems(-1)
+              }}
+              wType='texted'
+            >
+              <i className='material-icons'>expand_less</i>
+            </WButton>
+          ) : (
+            <WButton
+              className='table-entry-buttons'
+              onClick={() => {
+                handleReorderItems(-1)
+              }}
+              wType='texted'
+            >
+              <i className='material-icons'>expand_less</i>
+            </WButton>
+          )}
+
+          {props.index == props.size ? (
+            <WButton
+              className='table-entry-buttons disable-list-item-control'
+              onClick={() => {
+                handleReorderItems(1)
+              }}
+              wType='texted'
+            >
+              <i className='material-icons'>expand_more</i>
+            </WButton>
+          ) : (
+            <WButton
+              className='table-entry-buttons'
+              onClick={() => {
+                handleReorderItems(1)
+              }}
+              wType='texted'
+            >
+              <i className='material-icons'>expand_more</i>
+            </WButton>
+          )}
+
           <WButton
             className='table-entry-buttons'
             onClick={() => props.deleteItem(data, props.index)}
