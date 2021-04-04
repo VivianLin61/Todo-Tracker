@@ -34,7 +34,7 @@ const typeDefs = gql`
       flag: Int!
     ): [Item]
     reorderItems(itemId: String!, _id: String!, direction: Int!): [Item]
-    sortItems(_id: String!, field: String!): [Item]
+    sortItems(_id: String!, field: String!): Boolean
   }
   input FieldInput {
     _id: String

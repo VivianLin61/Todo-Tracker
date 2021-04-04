@@ -34,6 +34,23 @@ export class SortItems_Transaction extends jsTPS_Transaction {
     this.field = field
     this.updateFunction = callback
   }
+
+  async doTransaction() {
+    console.log('do transaction')
+    const { data } = await this.updateFunction({
+      variables: { _id: this.listID, field: this.field },
+    })
+    return data
+  }
+
+  async undoTransaction() {
+    const { data } = await this.updateFunction({
+      variables: {
+        variables: { _id: this.listID, field: this.field },
+      },
+    })
+    return data
+  }
 }
 
 /*  Handles item reordering */

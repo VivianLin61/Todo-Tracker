@@ -188,44 +188,11 @@ module.exports = {
 			@returns {array} the reordered item array on success, or initial ordering on failure
 		**/
     sortItems: async (_, args) => {
-      console.log('sort items resolver')
-      const { _id, sortingCriteria } = args
-      let oldItemsIds = []
-      let itemsToSort = []
-      const objectId = new ObjectId(_id)
-      const list = await Todolist.findOne({ _id: objectId })
-      const listItems = list.items
-      for (let i = 0; i < listItems.length; i++) {
-        let item = listItems[i]
-        oldItemsIds.push(item.id)
-        itemsToSort.push(item)
-      }
-      let sortIncreasing = true
+      console.log(args)
 
-      // IS IT ALREADY SORTED ACCORDING TO THE SELECTED
-      // CRITERIA IN INCREASING ORDER?
-      if (isInIncreasingOrder(itemsToSort, sortingCriteria)) {
-        sortIncreasing = false
-      }
-
-      let compareFunction = makeCompareFunction(sortingCriteria, sortIncreasing)
-      itemsToSort = itemsToSort.sort(compareFunction)
-
-      // NOW GET THE SORTED ORDER FOR IDS
-      let newItems = []
-      for (let i = 0; i < itemsToSort.length; i++) {
-        let item = itemsToSort[i]
-        newItemsIds.push(item)
-      }
-
-      const updated = await Todolist.updateOne(
-        { _id: objectId },
-        { items: newItems }
-      )
-      if (updated) return listItems
-
+      return false
       // return old items if sort was unsuccessful
-      return listItems
+      // return listItems
     },
   },
 }

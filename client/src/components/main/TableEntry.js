@@ -43,6 +43,10 @@ const TableEntry = (props) => {
     const prevAssignedTo = assigned_to
     props.editItem(data._id, 'assigned_to', newAssignedTo, prevAssignedTo)
   }
+
+  const handleReorderItems = (direction) => {
+    props.reorderItem(data._id, direction)
+  }
   return (
     <WRow className='table-entry'>
       <WCol size='3'>
@@ -140,14 +144,18 @@ const TableEntry = (props) => {
         <div className='button-group'>
           <WButton
             className='table-entry-buttons'
-            onClick={() => props.reorderItem(data._id, -1)}
+            onClick={() => {
+              handleReorderItems(-1)
+            }}
             wType='texted'
           >
             <i className='material-icons'>expand_less</i>
           </WButton>
           <WButton
             className='table-entry-buttons'
-            onClick={() => props.reorderItem(data._id, 1)}
+            onClick={() => {
+              handleReorderItems(1)
+            }}
             wType='texted'
           >
             <i className='material-icons'>expand_more</i>
