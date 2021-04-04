@@ -64,12 +64,24 @@ const Homescreen = (props) => {
   const tpsUndo = async () => {
     const retVal = await props.tps.undoTransaction()
     refetchTodos(refetch)
+    if (props.tps.getUndoSize() === 0) {
+      document
+        .getElementById('undo-button')
+        .classList.add('disable-list-item-control')
+    }
+    enableRedo()
     return retVal
   }
 
   const tpsRedo = async () => {
     const retVal = await props.tps.doTransaction()
     refetchTodos(refetch)
+    if (props.tps.getRedoSize() === 0) {
+      document
+        .getElementById('redo-button')
+        .classList.add('disable-list-item-control')
+    }
+    enableUndo()
     return retVal
   }
 
@@ -102,6 +114,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    enableUndo()
   }
 
   const deleteItem = async (item) => {
@@ -126,6 +139,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    enableUndo()
   }
 
   const editItem = async (itemID, field, value, prev) => {
@@ -143,6 +157,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    enableUndo()
   }
 
   const reorderItem = async (itemID, dir) => {
@@ -155,6 +170,7 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    enableUndo()
   }
 
   const sortItem = async (field) => {
@@ -162,6 +178,7 @@ const Homescreen = (props) => {
     let transaction = new SortItems_Transaction(listID, field, SortTodoItems)
     props.tps.addTransaction(transaction)
     tpsRedo()
+    enableUndo()
   }
 
   const createNewList = async () => {
@@ -203,11 +220,18 @@ const Homescreen = (props) => {
     )
     props.tps.addTransaction(transaction)
     tpsRedo()
+    enableUndo()
   }
 
   const handleSetActive = (id) => {
     const todo = todolists.find((todo) => todo.id === id || todo._id === id)
+
     setActiveList(todo)
+  }
+
+  const closeList = () => {
+    props.tps.clearAllTransactions()
+    setActiveList({})
   }
   /*
 		Since we only have 3 modals, this sort of hardcoding isnt an issue, if there
@@ -230,6 +254,18 @@ const Homescreen = (props) => {
     toggleShowCreate(false)
     toggleShowLogin(false)
     toggleShowDelete(!showDelete)
+  }
+
+  const enableUndo = () => {
+    document
+      .getElementById('undo-button')
+      .classList.remove('disable-list-item-control')
+  }
+
+  const enableRedo = () => {
+    document
+      .getElementById('redo-button')
+      .classList.remove('disable-list-item-control')
   }
 
   return (
@@ -286,6 +322,7 @@ const Homescreen = (props) => {
               undo={tpsUndo}
               redo={tpsRedo}
               setActiveList={setActiveList}
+              closeList={closeList}
             />
           </div>
         ) : (

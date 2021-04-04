@@ -64,6 +64,7 @@ body {
 
 .list-item-active {
   background-color: var(--deep-blue);
+  color: $primary-color;
 }
 
 .list-item {
@@ -202,4 +203,9 @@ body {
 
 .black-text {
   color: black;
+}
+
+.disable-list-item-control {
+  color: black;
+  pointer-events: none;
 }

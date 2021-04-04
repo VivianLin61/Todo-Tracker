@@ -3,7 +3,6 @@ import React from 'react'
 import { WButton, WRow, WCol } from 'wt-frontend'
 
 const TableHeader = (props) => {
-  const list = props.activeList
   const buttonStyle = props.disabled
     ? ' table-header-button-disabled '
     : 'table-header-button '
@@ -23,6 +22,9 @@ const TableHeader = (props) => {
     props.sortItem('assigned_to')
   }
 
+  const handleCloseList = () => {
+    props.closeList()
+  }
   return (
     <WRow className='table-header'>
       <WCol size='3'>
@@ -68,7 +70,8 @@ const TableHeader = (props) => {
       <WCol size='3'>
         <div className='table-header-buttons'>
           <WButton
-            className='sidebar-buttons undo-redo'
+            id={'undo-button'}
+            className='sidebar-buttons undo-redo disable-list-item-control'
             onClick={props.undo}
             wType='texted'
             clickAnimation='ripple-light'
@@ -77,7 +80,8 @@ const TableHeader = (props) => {
             <i className='material-icons'>undo</i>
           </WButton>
           <WButton
-            className='sidebar-buttons undo-redo'
+            id={'redo-button'}
+            className='sidebar-buttons undo-redo disable-list-item-control'
             onClick={props.redo}
             wType='texted'
             clickAnimation='ripple-light'
@@ -101,7 +105,11 @@ const TableHeader = (props) => {
           </WButton>
           <WButton
             onClick={
-              props.disabled ? clickDisabled : () => props.setActiveList({})
+              props.disabled
+                ? clickDisabled
+                : () => {
+                    handleCloseList()
+                  }
             }
             wType='texted'
             className={`${buttonStyle}`}
