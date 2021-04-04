@@ -188,9 +188,11 @@ module.exports = {
 			@returns {array} the reordered item array on success, or initial ordering on failure
 		**/
     sortItems: async (_, args) => {
+      console.log('sort items resolver')
       console.log(args)
 
       return false
+
       // return old items if sort was unsuccessful
       // return listItems
     },
