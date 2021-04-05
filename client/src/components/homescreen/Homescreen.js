@@ -35,6 +35,7 @@ const Homescreen = (props) => {
   const [AddTodolist] = useMutation(mutations.ADD_TODOLIST)
   const [AddTodoItem] = useMutation(mutations.ADD_ITEM)
   const [SortTodoItems] = useMutation(mutations.SORT_ITEMS)
+  const [SetActiveToTop] = useMutation(mutations.SET_TO_TOP)
 
   // const [SetTodoToTop] = useMutation(mutations.SET_TO_TOP)
 
@@ -245,15 +246,9 @@ const Homescreen = (props) => {
     const todo = todolists.find((todo) => todo.id === id || todo._id === id)
 
     setActiveList(todo)
-    // DeleteTodolist2({
-    //   variables: { _id: activeList._id },
-    //   refetchQueries: [{ query: GET_DB_TODOS }],
-    // })
-    // refetch()
-    // setActiveList({})
-    // SetTodoToTop({
-    //   variables: { _id: activeList._id },
-    // })
+    SetActiveToTop({
+      variables: { _id: todo._id },
+    })
   }
 
   const closeList = () => {

@@ -2,7 +2,6 @@ import React from 'react'
 import { WButton, WRow, WCol } from 'wt-frontend'
 
 const SidebarHeader = (props) => {
-  console.log(props.activeid)
   return (
     <WRow className='sidebar-header'>
       <WCol size='7'>

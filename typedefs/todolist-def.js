@@ -36,6 +36,7 @@ const typeDefs = gql`
     ): [Item]
     reorderItems(itemId: String!, _id: String!, direction: Int!): [Item]
     sortItems(_id: String!, field: String!): Boolean
+    setToTop(_id: String): Boolean
   }
   input FieldInput {
     _id: String

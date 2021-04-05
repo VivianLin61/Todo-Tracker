@@ -127,3 +127,9 @@ export const SORT_ITEMS = gql`
     sortItems(_id: $_id, field: $field)
   }
 `
+
+export const SET_TO_TOP = gql`
+  mutation SetToTop($_id: String!) {
+    setToTop(_id: $_id)
+  }
+`

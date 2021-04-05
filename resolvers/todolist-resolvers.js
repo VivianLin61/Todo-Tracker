@@ -239,6 +239,11 @@ module.exports = {
       // return listItems
       return false
     },
+
+    setToTop: async (_, args) => {
+      console.log(args)
+      return false
+    },
   },
 }
 function isInIncreasingOrder(itemsToTest, sortingCriteria) {
