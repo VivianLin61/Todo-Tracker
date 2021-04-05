@@ -209,3 +209,9 @@ body {
   color: black;
   pointer-events: none;
 }
+
+.disable-add-list {
+  pointer-events: none;
+  background-color: black;
+  color: gray;
+}

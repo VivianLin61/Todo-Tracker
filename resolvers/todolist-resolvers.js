@@ -201,7 +201,6 @@ module.exports = {
 			@returns {array} the reordered item array on success, or initial ordering on failure
 		**/
     sortItems: async (_, args) => {
-      console.log('sort items resolver')
       const { _id, field } = args
       let oldItemsIds = []
       let itemsToSort = []

@@ -10,6 +10,7 @@ const SidebarContents = (props) => {
         createNewList={props.createNewList}
         undo={props.undo}
         redo={props.redo}
+        activeid={props.activeid}
       />
       <SidebarList
         activeid={props.activeid}

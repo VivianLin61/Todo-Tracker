@@ -81,7 +81,6 @@ export class ReorderItems_Transaction extends jsTPS_Transaction {
   }
 }
 
-
 export class EditItem_Transaction extends jsTPS_Transaction {
   constructor(listID, itemID, field, prev, update, flag, callback) {
     super()
@@ -157,10 +156,14 @@ export class UpdateListItems_Transaction extends jsTPS_Transaction {
     let data
     this.opcode === 1
       ? ({ data } = await this.deleteFunction({
-          variables: { itemId: this.itemID, _id: this.listID },
+          variables: {
+            itemId: this.itemID,
+            _id: this.listID,
+            index: this.index,
+          },
         }))
       : ({ data } = await this.addFunction({
-          variables: { item: this.item, _id: this.listID },
+          variables: { item: this.item, _id: this.listID, index: this.index },
         }))
     if (this.opcode !== 1) {
       this.item._id = this.itemID = data.addItem

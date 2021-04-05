@@ -44,7 +44,6 @@ export const ADD_ITEM = gql`
     addItem(item: $item, _id: $_id, index: $index)
   }
 `
-
 export const DELETE_ITEM = gql`
   mutation DeleteItem($itemId: String!, $_id: String!) {
     deleteItem(itemId: $itemId, _id: $_id) {

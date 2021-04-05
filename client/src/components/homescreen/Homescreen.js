@@ -31,7 +31,6 @@ const Homescreen = (props) => {
   const [UpdateTodoItemField] = useMutation(mutations.UPDATE_ITEM_FIELD)
   const [UpdateTodolistField] = useMutation(mutations.UPDATE_TODOLIST_FIELD)
   const [DeleteTodolist] = useMutation(mutations.DELETE_TODOLIST)
-  const [DeleteTodolist2] = useMutation(mutations.DELETE_TODOLIST2)
   const [DeleteTodoItem] = useMutation(mutations.DELETE_ITEM)
   const [AddTodolist] = useMutation(mutations.ADD_TODOLIST)
   const [AddTodoItem] = useMutation(mutations.ADD_ITEM)
@@ -203,6 +202,13 @@ const Homescreen = (props) => {
       refetchQueries: [{ query: GET_DB_TODOS }],
     })
     setActiveList(list)
+    props.tps.clearAllTransactions()
+    document
+      .getElementById('undo-button')
+      .classList.add('disable-list-item-control')
+    document
+      .getElementById('redo-button')
+      .classList.add('disable-list-item-control')
   }
 
   const deleteList = async (_id) => {
@@ -228,6 +234,14 @@ const Homescreen = (props) => {
   }
 
   const handleSetActive = (id) => {
+    props.tps.clearAllTransactions()
+    document
+      .getElementById('undo-button')
+      .classList.add('disable-list-item-control')
+    document
+      .getElementById('redo-button')
+      .classList.add('disable-list-item-control')
+
     const todo = todolists.find((todo) => todo.id === id || todo._id === id)
 
     setActiveList(todo)
@@ -244,6 +258,12 @@ const Homescreen = (props) => {
 
   const closeList = () => {
     props.tps.clearAllTransactions()
+    document
+      .getElementById('undo-button')
+      .classList.add('disable-list-item-control')
+    document
+      .getElementById('redo-button')
+      .classList.add('disable-list-item-control')
     setActiveList({})
   }
   /*
