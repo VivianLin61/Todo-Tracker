@@ -231,7 +231,6 @@ module.exports = {
         newItems.push(item)
       }
 
-      // console.log(newItems)
       const updated = await Todolist.updateOne(
         { _id: objectId },
         { items: newItems }
