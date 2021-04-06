@@ -52,6 +52,21 @@ const Homescreen = (props) => {
 
   const auth = props.user === null ? false : true
 
+  useEffect(() => {
+    document.addEventListener(
+      'keyup',
+      function (event) {
+        if (event.ctrlKey && event.key === 'z') {
+          console.log(props.tps.transactions)
+          tpsUndo()
+        } else if (event.ctrlKey && event.key === 'y') {
+          console.log(props.tps.transactions)
+          tpsRedo()
+        }
+      },
+      false
+    )
+  }, [props.tps.transactions])
   const refetchTodos = async (refetch) => {
     const { loading, error, data } = await refetch()
     if (data) {
@@ -65,8 +80,6 @@ const Homescreen = (props) => {
   }
 
   const tpsUndo = async () => {
-    console.log('undo')
-    console.log(props.tps.transactions)
     const retVal = await props.tps.undoTransaction()
     refetchTodos(refetch)
     if (props.tps.getUndoSize() === 0) {

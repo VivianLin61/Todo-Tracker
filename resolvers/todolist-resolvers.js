@@ -37,6 +37,7 @@ module.exports = {
 			@returns {string} the objectID of the item or an error message
 		**/
     addItem: async (_, args) => {
+      console.log(args)
       const { _id, item, index } = args
       const listId = new ObjectId(_id)
       const objectId = new ObjectId()
@@ -234,29 +235,13 @@ module.exports = {
       //remove to do list the add then to the to
       const { _id, owner } = args
       const objectId = new ObjectId(_id)
-      const activeList = await Todolist.deleteOne({ _id: objectId })
-      const updated = await Todolist.updateOne(
-        {
-          _id: objectId,
-        },
-        { name: 'top list' }
+      const activeList = await Todolist.updateOne(
+        { _id: objectId },
+        { name: 'toplist' }
       )
 
-      // const deleted = await Todolist.deleteOne({ _id: objectId })
-      // const todolists = await Todolist.find({ owner: owner })
-      // todolists.unshift(activeList)
-      // const newList = new Todolist({
-      //   _id: activeList._id,
-      //   id: activeList.id,
-      //   name: activeList.name,
-      //   owner: activeList.owner,
-      //   items: activeList.items,
-      // })
-
-      // const updated = newList.save()
-
       return false
-      // if (updated) return objectId
+
       // else return 'Could not add todolist'
     },
   },
