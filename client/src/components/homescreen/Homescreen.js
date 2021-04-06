@@ -19,9 +19,11 @@ import {
   EditItem_Transaction,
 } from '../../utils/jsTPS'
 import WInput from 'wt-frontend/build/components/winput/WInput'
+import { NetworkStatus } from '@apollo/client'
 
 const Homescreen = (props) => {
   let todolists = []
+  const [updateList, toggleUpdateList] = useState(false)
   const [activeList, setActiveList] = useState({})
   const [showDelete, toggleShowDelete] = useState(false)
   const [showLogin, toggleShowLogin] = useState(false)
@@ -36,8 +38,6 @@ const Homescreen = (props) => {
   const [AddTodoItem] = useMutation(mutations.ADD_ITEM)
   const [SortTodoItems] = useMutation(mutations.SORT_ITEMS)
   const [SetActiveToTop] = useMutation(mutations.SET_TO_TOP)
-
-  // const [SetTodoToTop] = useMutation(mutations.SET_TO_TOP)
 
   const { loading, error, data, refetch } = useQuery(GET_DB_TODOS)
   if (loading) {
@@ -65,6 +65,8 @@ const Homescreen = (props) => {
   }
 
   const tpsUndo = async () => {
+    console.log('undo')
+    console.log(props.tps.transactions)
     const retVal = await props.tps.undoTransaction()
     refetchTodos(refetch)
     if (props.tps.getUndoSize() === 0) {
@@ -247,8 +249,11 @@ const Homescreen = (props) => {
 
     setActiveList(todo)
     SetActiveToTop({
-      variables: { _id: todo._id },
+      variables: { _id: todo._id, owner: props.user._id },
     })
+    // console.log(todolists)
+    // toggleUpdateList(!updateList)
+    // setToDolists(todolists)
   }
 
   const closeList = () => {
@@ -330,6 +335,7 @@ const Homescreen = (props) => {
               undo={tpsUndo}
               redo={tpsRedo}
               updateListField={updateListField}
+              updateList={updateList}
             />
           ) : (
             <></>

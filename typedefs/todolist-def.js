@@ -25,7 +25,6 @@ const typeDefs = gql`
     addTodolist(todolist: TodoInput!): String
     deleteItem(itemId: String!, _id: String!): [Item]
     deleteTodolist(_id: String!): Boolean
-    deleteTodolist2(_id: String!): Boolean
     updateTodolistField(_id: String!, field: String!, value: String!): String
     updateItemField(
       itemId: String!
@@ -36,7 +35,7 @@ const typeDefs = gql`
     ): [Item]
     reorderItems(itemId: String!, _id: String!, direction: Int!): [Item]
     sortItems(_id: String!, field: String!): Boolean
-    setToTop(_id: String): Boolean
+    setToTop(_id: String!, owner: String!): Boolean
   }
   input FieldInput {
     _id: String

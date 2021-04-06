@@ -129,7 +129,7 @@ export const SORT_ITEMS = gql`
 `
 
 export const SET_TO_TOP = gql`
-  mutation SetToTop($_id: String!) {
-    setToTop(_id: $_id)
+  mutation SetToTop($_id: String!, $owner: String!) {
+    setToTop(_id: $_id, owner: $owner)
   }
 `

@@ -2,6 +2,7 @@ import React from 'react'
 import SidebarEntry from './SidebarEntry'
 
 const SidebarList = (props) => {
+  console.log(props.todolists)
   return (
     <>
       {props.todolists &&
@@ -14,6 +15,7 @@ const SidebarList = (props) => {
             name={todo.name}
             _id={todo._id}
             updateListField={props.updateListField}
+            updateList={props.updateList}
           />
         ))}
     </>

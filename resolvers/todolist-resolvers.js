@@ -104,17 +104,7 @@ module.exports = {
       if (deleted) return true
       else return false
     },
-    /** 
-		 	@param 	 {object} args - a todolist objectID 
-			@returns {boolean} true on successful delete, false on failure
-		**/
-    deleteTodolist2: async (_, args) => {
-      const { _id } = args
-      const objectId = new ObjectId(_id)
-      const deleted = await Todolist.deleteOne({ _id: objectId })
-      if (deleted) return true
-      else return false
-    },
+
     /** 
 		 	@param 	 {object} args - a todolist objectID, field, and the update value
 			@returns {boolean} true on successful update, false on failure
@@ -241,8 +231,33 @@ module.exports = {
     },
 
     setToTop: async (_, args) => {
-      console.log(args)
+      //remove to do list the add then to the to
+      const { _id, owner } = args
+      const objectId = new ObjectId(_id)
+      const activeList = await Todolist.deleteOne({ _id: objectId })
+      const updated = await Todolist.updateOne(
+        {
+          _id: objectId,
+        },
+        { name: 'top list' }
+      )
+
+      // const deleted = await Todolist.deleteOne({ _id: objectId })
+      // const todolists = await Todolist.find({ owner: owner })
+      // todolists.unshift(activeList)
+      // const newList = new Todolist({
+      //   _id: activeList._id,
+      //   id: activeList.id,
+      //   name: activeList.name,
+      //   owner: activeList.owner,
+      //   items: activeList.items,
+      // })
+
+      // const updated = newList.save()
+
       return false
+      // if (updated) return objectId
+      // else return 'Could not add todolist'
     },
   },
 }

@@ -41,7 +41,13 @@ const SidebarEntry = (props) => {
           defaultValue={props.name}
         />
       ) : (
-        <div className='list-text'>{props.name}</div>
+        <div
+          className={
+            props.id == props.activeid ? 'list-text yellow-text' : 'list-text'
+          }
+        >
+          {props.name}
+        </div>
       )}
     </WNavItem>
   )

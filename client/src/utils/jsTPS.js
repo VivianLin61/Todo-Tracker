@@ -312,7 +312,7 @@ export class jsTPS {
    * of the top of the stack.
    */
   clearAllTransactions() {
-    console.log('clear transacttions')
+    console.log('clera')
     // REMOVE ALL THE TRANSACTIONS
     this.transactions = []
 
