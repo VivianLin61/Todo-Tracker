@@ -57,16 +57,14 @@ const Homescreen = (props) => {
       'keyup',
       function (event) {
         if (event.ctrlKey && event.key === 'z') {
-          console.log(props.tps.transactions)
           tpsUndo()
         } else if (event.ctrlKey && event.key === 'y') {
-          console.log(props.tps.transactions)
           tpsRedo()
         }
       },
       false
     )
-  }, [props.tps.transactions])
+  }, [])
   const refetchTodos = async (refetch) => {
     const { loading, error, data } = await refetch()
     if (data) {
@@ -212,6 +210,7 @@ const Homescreen = (props) => {
       name: 'Untitled',
       owner: props.user._id,
       items: [],
+      active: false,
     }
     const { data } = await AddTodolist({
       variables: { todolist: list },
@@ -249,7 +248,18 @@ const Homescreen = (props) => {
     enableUndo()
   }
 
+  const updateTopList = async (id) => {
+    const todo = todolists.find((todo) => todo.id === id || todo._id === id)
+    await SetActiveToTop({
+      variables: { _id: todo._id, owner: props.user._id },
+      refetchQueries: [{ query: GET_DB_TODOS }],
+    })
+  }
+
   const handleSetActive = (id) => {
+    updateTopList(id)
+    const todo = todolists.find((todo) => todo.id === id || todo._id === id)
+    setActiveList(todo)
     props.tps.clearAllTransactions()
     document
       .getElementById('undo-button')
@@ -257,16 +267,6 @@ const Homescreen = (props) => {
     document
       .getElementById('redo-button')
       .classList.add('disable-list-item-control')
-
-    const todo = todolists.find((todo) => todo.id === id || todo._id === id)
-
-    setActiveList(todo)
-    SetActiveToTop({
-      variables: { _id: todo._id, owner: props.user._id },
-    })
-    // console.log(todolists)
-    // toggleUpdateList(!updateList)
-    // setToDolists(todolists)
   }
 
   const closeList = () => {

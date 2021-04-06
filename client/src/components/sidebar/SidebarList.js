@@ -2,7 +2,6 @@ import React from 'react'
 import SidebarEntry from './SidebarEntry'
 
 const SidebarList = (props) => {
-  console.log(props.todolists)
   return (
     <>
       {props.todolists &&

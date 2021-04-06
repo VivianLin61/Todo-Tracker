@@ -17,6 +17,7 @@ module.exports = {
         return []
       }
       const todolists = await Todolist.find({ owner: _id })
+      todolists.sort((a, b) => (a.active > b.active ? -1 : 1))
       if (todolists) return todolists
     },
     /** 
@@ -232,17 +233,26 @@ module.exports = {
     },
 
     setToTop: async (_, args) => {
-      //remove to do list the add then to the to
       const { _id, owner } = args
-      const objectId = new ObjectId(_id)
-      const activeList = await Todolist.updateOne(
-        { _id: objectId },
-        { name: 'toplist' }
+      let foundNew
+      const currentListId = new ObjectId(_id)
+      const foundCurrent = await Todolist.findOne({ _id: currentListId })
+      let lists = await Todolist.find({ owner: foundCurrent.owner })
+
+      for (let i = 0; i < lists.length; i++) {
+        if (lists[i].active === true) {
+          foundNew = await Todolist.updateOne(
+            { _id: lists[i]._id },
+            { active: false }
+          )
+        }
+      }
+      const newUpdated = await Todolist.updateOne(
+        { _id: foundCurrent._id },
+        { active: true }
       )
-
-      return false
-
-      // else return 'Could not add todolist'
+      return foundNew & newUpdated
+      // return true
     },
   },
 }

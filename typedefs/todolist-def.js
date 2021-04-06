@@ -7,6 +7,7 @@ const typeDefs = gql`
     name: String!
     owner: String!
     items: [Item]
+    active: Boolean
   }
   type Item {
     _id: String!
@@ -48,6 +49,7 @@ const typeDefs = gql`
     name: String
     owner: String
     items: [ItemInput]
+    active: Boolean
   }
   input ItemInput {
     _id: String
