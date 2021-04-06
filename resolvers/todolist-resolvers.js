@@ -16,9 +16,26 @@ module.exports = {
       if (!_id) {
         return []
       }
-      const todolists = await Todolist.find({ owner: _id })
-      todolists.sort((a, b) => (a.active > b.active ? -1 : 1))
-      if (todolists) return todolists
+      var todolists = await Todolist.find({ owner: _id })
+      //Remove then insert at top
+      let index
+      let active
+      var temp = [...todolists]
+      for (var i = 0; i < temp.length; i++) {
+        if (temp[i].active) {
+          active = temp[i]
+          index = i
+        }
+      }
+      // console.log(index)
+      if (index != undefined) {
+        temp.splice(index, 1)
+        temp.unshift(active)
+      }
+
+      todolists = temp
+
+      if (temp) return todolists
     },
     /** 
 		 	@param 	 {object} args - a todolist id
@@ -235,27 +252,24 @@ module.exports = {
     setToTop: async (_, args) => {
       const { _id, owner } = args
       let foundNew
-      const currentListId = new ObjectId(_id)
-      const foundCurrent = await Todolist.findOne({ _id: currentListId })
-      let lists = await Todolist.find({ owner: foundCurrent.owner })
+      const activeId = new ObjectId(_id)
+      let lists = await Todolist.find({ owner: owner })
 
       for (let i = 0; i < lists.length; i++) {
         if (lists[i].active === true) {
-          foundNew = await Todolist.updateOne(
-            { _id: lists[i]._id },
-            { active: false }
-          )
+          await Todolist.updateOne({ _id: lists[i]._id }, { active: false })
         }
       }
-      const newUpdated = await Todolist.updateOne(
-        { _id: foundCurrent._id },
+
+      const updated = await Todolist.updateOne(
+        { _id: activeId },
         { active: true }
       )
-      return foundNew & newUpdated
-      // return true
+      return true
     },
   },
 }
+
 function isInIncreasingOrder(itemsToTest, sortingCriteria) {
   for (let i = 0; i < itemsToTest.length - 1; i++) {
     if (itemsToTest[i][sortingCriteria] > itemsToTest[i + 1][sortingCriteria])
