@@ -251,7 +251,6 @@ module.exports = {
 
     setToTop: async (_, args) => {
       const { _id, owner } = args
-      let foundNew
       const activeId = new ObjectId(_id)
       let lists = await Todolist.find({ owner: owner })
 
