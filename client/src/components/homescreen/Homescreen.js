@@ -53,18 +53,19 @@ const Homescreen = (props) => {
   const auth = props.user === null ? false : true
 
   useEffect(() => {
-    document.addEventListener(
-      'keyup',
-      function (event) {
-        if (event.ctrlKey && event.key === 'z') {
-          tpsUndo()
-        } else if (event.ctrlKey && event.key === 'y') {
-          tpsRedo()
-        }
-      },
-      false
-    )
-  }, [])
+    document.addEventListener('keyup', keyboardUndoRedo, false)
+    return () => {
+      document.removeEventListener('keyup', keyboardUndoRedo, false)
+    }
+  })
+
+  const keyboardUndoRedo = (e) => {
+    if (e.ctrlKey && e.key === 'z') {
+      tpsUndo()
+    } else if (e.ctrlKey && e.key === 'y') {
+      tpsRedo()
+    }
+  }
   const refetchTodos = async (refetch) => {
     const { loading, error, data } = await refetch()
     if (data) {
@@ -248,17 +249,17 @@ const Homescreen = (props) => {
     enableUndo()
   }
 
-  const updateTopList = async (id) => {
-    const todo = todolists.find((todo) => todo.id === id || todo._id === id)
+  const updateTopList = async (_id) => {
+    // const todo = todolists.find((todo) => todo.id === id || todo._id === id)
     await SetActiveToTop({
-      variables: { _id: todo._id, owner: props.user._id },
+      variables: { _id: _id, owner: props.user._id },
       refetchQueries: [{ query: GET_DB_TODOS }],
     })
   }
 
   const handleSetActive = (id) => {
-    updateTopList(id)
     const todo = todolists.find((todo) => todo.id === id || todo._id === id)
+    updateTopList(todo._id)
     setActiveList(todo)
     props.tps.clearAllTransactions()
     document
