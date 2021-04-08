@@ -217,7 +217,11 @@ const Homescreen = (props) => {
       variables: { todolist: list },
       refetchQueries: [{ query: GET_DB_TODOS }],
     })
-    setActiveList(list)
+    await refetchTodos(refetch)
+    if (data) {
+      let _id = data.addTodolist
+      handleSetActive(_id)
+    }
     props.tps.clearAllTransactions()
     document
       .getElementById('undo-button')

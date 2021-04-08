@@ -6,6 +6,9 @@ const TableHeader = (props) => {
   const buttonStyle = props.disabled
     ? ' table-header-button-disabled '
     : 'table-header-button '
+  const headerStyle = props.disabled
+    ? 'table-header-section-disabled'
+    : 'table-header-section'
   const clickDisabled = () => {}
   const handleSortByDescription = () => {
     props.sortItem('description')
@@ -31,7 +34,7 @@ const TableHeader = (props) => {
       <WCol size='3'>
         <WButton
           onClick={handleSortByDescription}
-          className='table-header-section'
+          className={`${headerStyle}`}
           wType='texted'
         >
           Task
@@ -41,7 +44,7 @@ const TableHeader = (props) => {
       <WCol size='2'>
         <WButton
           onClick={handleSortByDueDate}
-          className='table-header-section'
+          className={`${headerStyle}`}
           wType='texted'
         >
           Due Date
@@ -51,7 +54,7 @@ const TableHeader = (props) => {
       <WCol size='2'>
         <WButton
           onClick={handleSortByStatus}
-          className='table-header-section'
+          className={`${headerStyle}`}
           wType='texted'
         >
           Status
@@ -60,7 +63,7 @@ const TableHeader = (props) => {
 
       <WCol size='2'>
         <WButton
-          className='table-header-section'
+          className={`${headerStyle}`}
           wType='texted'
           onClick={handleSortByAssignedTo}
         >

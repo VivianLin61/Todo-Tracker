@@ -55,7 +55,6 @@ module.exports = {
 			@returns {string} the objectID of the item or an error message
 		**/
     addItem: async (_, args) => {
-      console.log(args)
       const { _id, item, index } = args
       const listId = new ObjectId(_id)
       const objectId = new ObjectId()
