@@ -5,7 +5,6 @@ CSE 316 Spring 2021 HW
 
 A Node todo application built with MongoDB and React.
 <img src='http://g.recordit.co/qEbHvyjR3P.gif'/>
-![](https://recordit.co/qEbHvyjR3P)
 
 ## Installation
 
@@ -15,5 +14,3 @@ A Node todo application built with MongoDB and React.
 - Return to the root directory using `cd ..`
 - Run `npm start` in the root directory.
 
-
-## Relevant Links
