@@ -16,5 +16,5 @@ CSE 316 Spring 2021 HW<br />
 - Return to the root directory using `cd ..`
 - Place your own MongoDB URI `.env`
 - Run `npm start` in the root directory.
-- View in browser t 
+- View in browser at `http://localhost:8080`
 
