@@ -3,7 +3,8 @@
 # Todo Tracker
 CSE 316 Spring 2021 HW<br />
 ## A Node todo application built with MongoDB and React.
-<img src='http://g.recordit.co/qEbHvyjR3P.gif'/>
+![qEbHvyjR3P](https://user-images.githubusercontent.com/33815743/118901190-a6780280-b8e0-11eb-8b27-fb2b335a3893.gif)
+
 
 ## Requirements 
 - Must have Node installed
