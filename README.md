@@ -9,7 +9,7 @@ CSE 316 Spring 2021 HW<br />
 ## Requirements 
 - Must have Node installed
 - Set up MongoDB URI
-- Enter a random 32 character sequence for the refresh and access token secrets in `.env`
+
 ## Installation
 
 - In the root directory run :
@@ -17,6 +17,7 @@ CSE 316 Spring 2021 HW<br />
 - Go to the client directory using `cd client` and run `npm install` again.
 - Return to the root directory using `cd ..`
 - Place your own MongoDB URI in `.env`
+- Enter a random 32 character sequence for the refresh and access token secrets in `.env`
 - Run `npm start` in the root directory.
 - View in browser at `http://localhost:8080`
 
